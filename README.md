@@ -21,4 +21,4 @@ You may:
 - Not use for commercial purposes
 - Share any derivatives under the same license
 
-This project is for educational purposes and does not reproduce any copyrighted content from Dummit & Foote’s textbook.
+This project is for educational purposes and does not reproduce any copyrighted content from Norvig & Russell’s textbook.
