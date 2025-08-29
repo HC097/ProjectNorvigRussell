@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, graphicx}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+% For nicely formatted pseudocode:
+\usepackage{algorithm}      % floating "Algorithm" environment
+\usepackage{algpseudocode}  % modern algorithmic macros: \For, \While, \State, \To, etc.
+\usepackage{float}          % enables the [H] placement specifier
+
+% (Optional) nicer inline comments in pseudocode:
+\algrenewcommand\algorithmiccomment[1]{\hfill\(\triangleright\)~#1}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{calculative}[theorem]{Calculative}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0pt}{}[.]
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Lecture 1 - Chpt 1, Chpt 2} \\
+\large Harley Caham Combest \\
+\large Fa2025 CS4013 Lecture Notes – Mk1
+\end{center}
+
+\vspace{1em}
+
+\dotfill
+\section*{Chapter 1: Introduction to Artificial Intelligence}
+\dotfill
+
+\subsection*{Historical Context}
+Humans have long asked how the mind works. Aristotle studied reasoning rules.  
+Alan Turing reframed the problem in 1950: instead of asking ``Can machines think?'' he asked
+if a machine could \emph{imitate} human conversation well enough to fool an interrogator.
+This thought experiment became the \textbf{Turing Test}.
+
+\subsection*{Definitions of AI}
+Approaches differ by whether they emphasize \textbf{thinking} vs.\ \textbf{acting}, and
+\textbf{human-like} vs.\ \textbf{rational}. Four traditions emerge:
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Thinking Humanly & Thinking Rationally \\
+        \hline
+        Acting Humanly & Acting Rationally \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\noindent
+\textbf{Definition 1 (AI).}  
+Artificial Intelligence is the field concerned with building systems that display
+behavior we would call ``intelligent'' if done by humans.
+
+\subsection*{Core Capabilities}
+Typical ingredients of an AI system:
+\begin{itemize}[noitemsep]
+    \item Natural language processing (understanding words).
+    \item Knowledge representation (storing facts).
+    \item Automated reasoning (drawing conclusions).
+    \item Machine learning (improving with experience).
+    \item Computer vision (seeing).
+    \item Robotics (acting physically).
+\end{itemize}
+
+\subsection*{Calculative Example: The Turing Test}
+\textbf{Setup.} Imagine a human judge converses (via text) with both a machine and a person.
+If after many questions the judge cannot reliably tell which is the human, the machine
+\emph{passes}.
+
+\begin{itemize}[noitemsep]
+    \item Machine must manage small talk, factual questions, and follow-ups.
+    \item Requires integration of \emph{all six AI capabilities}.
+\end{itemize}
+
+\textbf{Walkthrough:}
+\begin{enumerate}[noitemsep]
+    \item Judge: ``What is 2+2?''  
+          Machine: ``4.'' (trivial).
+    \item Judge: ``Tell me a joke.''  
+          Machine: retrieves a canned joke.  
+    \item Judge: ``What did you say earlier about your favorite book?''  
+          Machine: must \emph{remember} past conversation = knowledge representation.
+\end{enumerate}
+
+\textbf{Lesson.} Passing requires more than tricks. The test stresses memory, reasoning,
+and flexibility.
+
+\subsection*{Concluding Remarks}
+The essence of AI is not copying humans exactly, but designing systems that can act
+\emph{rationally}, doing the right thing in context.
+
+\newpage
+
+\dotfill
+\section*{Chapter 2: Intelligent Agents}
+\dotfill
+
+\subsection*{Agents and Environments}
+\textbf{Definition 2 (Agent).}  
+An agent perceives its environment through \emph{sensors} and acts on it through \emph{actuators}.
+
+\subsection*{PEAS Framework}
+To specify an agent’s task, define:
+\begin{itemize}[noitemsep]
+    \item Performance measure (how we score it).
+    \item Environment (where it lives).
+    \item Actuators (how it acts).
+    \item Sensors (how it perceives).
+\end{itemize}
+
+\textbf{Example: Automated Taxi}
+\begin{itemize}[noitemsep]
+    \item Performance: safe, legal, fast trips.
+    \item Environment: roads, traffic, weather.
+    \item Actuators: steering, pedals, display, voice.
+    \item Sensors: cameras, GPS, speedometer, microphone.
+\end{itemize}
+
+\subsection*{The Concept of Rationality}
+\textbf{Definition 3 (Rational Agent).}  
+A rational agent selects the action that maximizes expected performance given its knowledge
+and percepts to date.
+
+\textbf{Note.} Rational $\neq$ perfect. It simply means ``best possible under the circumstances.''
+
+\subsection*{Calculative Example: The Vacuum World}
+\textbf{Setup.} Two rooms: $A$ and $B$. Each can be clean or dirty.  
+Agent can: move left, move right, suck dirt, or do nothing.
+
+\medskip
+\noindent
+\textbf{Performance Measure:} +1 for each clean square per time step.  
+\textbf{Sensors:} detect current room + whether dirty.  
+\textbf{Actuators:} move left/right, suck.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+    \hline
+    Percept & Action \\
+    \hline
+    (In $A$, dirty) & Suck \\
+    (In $A$, clean) & Move Right \\
+    (In $B$, dirty) & Suck \\
+    (In $B$, clean) & Move Left \\
+    \hline
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Walkthrough:}
+\begin{enumerate}[noitemsep]
+    \item Start: $(A, dirty)$. Agent sucks $\to$ square A is clean.
+    \item Now: $(A, clean)$. Agent moves right $\to$ goes to square B.
+    \item If $(B, dirty)$, agent sucks $\to$ both clean. Success!
+\end{enumerate}
+
+\textbf{Lesson.} This \emph{simple reflex agent} works well in this small world.
+But if dirt reappears or rooms are unknown, it may loop forever. Stronger agents
+(model-based or learning) perform better.
+
+\subsection*{Pitfall Example: When Reflex Agents Fail}
+\textbf{Scenario.} Suppose our vacuum agent has no memory of past states.  
+Its only percept is ``dirty'' or ``clean'' in the current square.
+
+\medskip
+\noindent
+\textbf{Problem.} After cleaning one square, if it finds the square clean, it must \emph{guess} what to do next.  
+If it always moves left, but it started in the leftmost square, it will bump into the wall forever.  
+If it always moves right, the same problem occurs on the other side.
+
+\medskip
+\noindent
+\textbf{Outcome.} The agent can get stuck in an \emph{infinite loop}, achieving very low performance.  
+Even though the design looked correct in the table, the absence of memory makes it fragile.
+
+\medskip
+\noindent
+\textbf{Lesson.} Simple reflex agents can succeed in tiny, cleanly defined worlds.  
+But as soon as the world is partially observable or unpredictable, we need stronger designs:  
+\begin{itemize}[noitemsep]
+    \item Model-based agents (remember past states).  
+    \item Learning agents (improve through feedback).  
+\end{itemize}
+This pitfall motivates moving beyond reflexes to more powerful architectures.
+
+\subsection*{Types of Agents}
+\begin{enumerate}[noitemsep]
+    \item Simple reflex agents: act only on current percept.
+    \item Model-based: maintain memory of unseen world parts.
+    \item Goal-based: choose actions to reach goals.
+    \item Utility-based: weigh tradeoffs (speed vs.\ safety).
+    \item Learning agents: improve performance over time.
+\end{enumerate}
+
+\subsection*{Concluding Remarks}
+Agent design steps:
+\begin{itemize}[noitemsep]
+    \item Use PEAS to specify the environment clearly.
+    \item Define rationality using performance measures.
+    \item Choose agent architecture (reflex, model-based, goal, utility, learning).
+\end{itemize}
+\noindent
+This gives us a rigorous but approachable way to formalize ``intelligence.''
+
+
+
+\end{document}
